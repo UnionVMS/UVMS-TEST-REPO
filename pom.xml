@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Developed with the contribution of the European Commission - Directorate 
+General for Maritime Affairs and Fisheries ~ © European Union, 2015-2016. 
+~ ~ This file is part of the Integrated Fisheries Data Management (IFDM) 
+Suite. The IFDM Suite is free software: you can ~ redistribute it and/or 
+modify it under the terms of the GNU General Public License as published 
+by the ~ Free Software Foundation, either version 3 of the License, or any 
+later version. The IFDM Suite is distributed in ~ the hope that it will be 
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+or ~ FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+for more details. You should have received a ~ copy of the GNU General Public 
+License along with the IFDM Suite. If not, see <http://www.gnu.org/licenses />. -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>fish.focus.uvms.maven</groupId>
+        <artifactId>uvms-pom</artifactId>
+        <version>1.21</version>
+        <relativePath />
+    </parent>
+
+    <groupId>eu.europa.ec.fisheries.uvms</groupId>
+    <artifactId>mare-pom</artifactId>
+    <version>dev16</version>
+    <packaging>pom</packaging>
+    <name>mare-pom</name>
+    <description>mare pom, parent for mare released projects</description>
+
+    <properties>
+        <!-- ================= -->
+        <!-- Maven default properties -->
+        <!-- ================= -->
+        <!-- Release plugin -->
+        <project.scm.id>github</project.scm.id>
+        
+        <!-- override install at end at it seems to prevent install in some cases (when extensions are used) -->
+        <installAtEnd>false</installAtEnd>
+        <changelist>-MARE</changelist>
+        <buildTS>${revision}</buildTS>
+        <revision>-SNAPSHOT</revision>
+        <UVMSCommonsLibrary.version>3.4${changelist}${revision}</UVMSCommonsLibrary.version>
+        <UserAPP.version>2.0.15${changelist}${revision}</UserAPP.version>
+        
+    </properties>
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>flatten-maven-plugin</artifactId>
+      <version>1.1.0</version>
+      <configuration>
+        <updatePomFile>true</updatePomFile>
+        <flattenMode>resolveCiFriendliesOnly</flattenMode>
+      </configuration>
+      <executions>
+        <execution>
+          <id>flatten</id>
+          <phase>process-resources</phase>
+          <goals>
+            <goal>flatten</goal>
+          </goals>
+        </execution>
+        <execution>
+          <id>flatten.clean</id>
+          <phase>clean</phase>
+          <goals>
+            <goal>clean</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											flatten-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.1.0,)
+										</versionRange>
+										<goals>
+											<goal>flatten</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+  </build>
+
+</project>
